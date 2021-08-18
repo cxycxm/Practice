@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: bwhome-system
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://62.234.30.21:8848
+      config:
+        server-addr: http://62.234.30.21:8848
+        file-extension: yml

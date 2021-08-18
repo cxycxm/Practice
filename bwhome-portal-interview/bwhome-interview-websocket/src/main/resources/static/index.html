@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+</head>
+<body>
+
+<div id="contentLeft" style="float: left">
+    <p>userId:<span id="userIdVal">1</span></p>
+</div>
+<div id="contentRight" style="float: right">
+</div>
+<div style="text-align: center">
+    <p>toUserId：<input id="toUserId" name="userId" ></p>
+    <p>消息内容：<input id="contentMessage" name="contentMessage" ></p>
+    <a href="javascript:sendMessage()">发送消息</a>
+</div>
+<script>
+    var socket;
+    var contentRight ;
+    var contentLeft;
+    window.onload   = function () {
+        contentRight = document.getElementById("contentRight");
+        contentLeft = document.getElementById("contentLeft");
+        openSocket();
+        socket.onmessage = function (evt) {
+            var rec_message = evt.data;
+            var para = document.createElement("p");
+            var node = document.createTextNode(rec_message);
+            para.appendChild(node);
+            contentRight.appendChild(para);
+        }
+        socket.onclose = function () {
+            console.log("已关闭");
+        }
+        socket.onerror = function () {
+            console.log("错误")
+        }
+    }
+    function sendMessage() {
+        var toUserId = document.getElementById("toUserId").value;
+        var contentMessage = document.getElementById("contentMessage").value;
+        var json = '{"toUserId": "'+ toUserId   + '", "contentMessage":" ' + contentMessage + '"  }';
+        socket.send(json);
+
+        var para = document.createElement("p");
+        var node = document.createTextNode(contentMessage);
+        para.appendChild(node);
+        contentLeft.appendChild(para);
+    }
+
+    function openSocket() {
+        if (typeof (WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        }else{
+            socket = new WebSocket("ws://localhost:8888/imserver/1");
+            socket.onopen = function () {
+                console.log("WebSocket已打开");
+            }
+
+        }
+    }
+</script>
+</body>
+</html>

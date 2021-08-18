@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>oss上传下载测试</title>
+    <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.4.4.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    var client = new OSS({
+        // yourRegion填写Bucket所在地域。以华东1（杭州）为例，Region填写为oss-cn-hangzhou。
+        region: 'yourRegion',
+        // 从STS服务获取的临时访问凭证。临时访问凭证包括临时访问密钥（AccessKeyId和AccessKeySecret）和安全令牌（SecurityToken）。
+        accessKeyId: 'yourAccessKeyId',
+        accessKeySecret: 'yourAccessKeySecret',
+        stsToken: 'yourSecurityToken',
+        // 填写Bucket名称。
+        bucket: 'examplebucket'
+    });
+</script>
+</body>
+</html>
